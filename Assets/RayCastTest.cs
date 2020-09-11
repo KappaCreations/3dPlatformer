@@ -13,9 +13,32 @@ public class RayCastTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray r = new Ray(transform.position,Vector3.down*3);
+        Ray r = new Ray(transform.position,Vector3.down);
 
-        Debug.DrawRay(r.origin, r.direction);
-        Debug.Log("updating");
+        //Debug.DrawLine(r.origin, r.origin + (Vector3.down * 10));
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(r, out hit, 10))
+        {
+            if(hit.transform != null)
+            {
+                //Debug.Log(hit.transform.name);
+            }
+
+            if(hit.transform.GetComponent<GroundInfo>() != null)
+            {
+                Debug.Log(hit.transform.GetComponent<GroundInfo>().value);
+
+            }
+
+            else
+            {
+                Debug.Log("Has no GroundInfo value)");
+            }
+        
+        
+        
+        }
     }
 }
