@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    float moveSpeed = 1;
+    float moveSpeed = 6;
 
     [SerializeField]
     float jumpSpeed = 8;
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(r.origin, r.direction);
         //RaycastHit hit;
         
-        if (Physics.Raycast(transform.position, Vector3.down, .5f))
+        if (Physics.Raycast(transform.position, Vector3.down, .6f))
                 touchingFloor = true;
 
             else
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-
+        
         
     }
 
@@ -59,6 +61,16 @@ public class PlayerMovement : MonoBehaviour
     
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
